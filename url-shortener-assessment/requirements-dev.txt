@@ -1,0 +1,9 @@
+-r requirements.lock
+pytest==9.0.2
+pytest-cov==7.0.0
+coverage==7.13.3
+httpx==0.28.1
+jsonschema==4.26.0
+ruff==0.16.10
+mypy==2.4.0
+pip-audit==2.10.1

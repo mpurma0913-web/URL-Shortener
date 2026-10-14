@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URL Shortener | Engineering Assessment</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><main><header><p class="eyebrow">ENGINEER-LED / REVIEWABLE BY DESIGN</p><h1>URL Shortener</h1>
+<p>Create a short link, inspect its redirect counts, and review controlled engineering workflows.</p></header>
+<section><h2>Session credentials</h2><p>Keys stay in this page's memory only. Nothing is stored in browser storage.</p>
+<label for="key">Operator API key</label><input id="key" type="password" autocomplete="off" spellcheck="false">
+<label for="reviewer">Reviewer key (only for explicit approvals)</label><input id="reviewer" type="password" autocomplete="off" spellcheck="false">
+<button id="clear" type="button" class="secondary">Clear credentials and results</button></section>
+<section><h2>Create a link</h2><form id="create-form"><label for="url">Destination URL</label><input id="url" type="url" placeholder="https://example.com/article" required maxlength="2048">
+<label for="expiry">Expiry, optional (ISO 8601 with timezone)</label><input id="expiry" placeholder="2027-01-01T00:00:00Z">
+<label for="idem">Idempotency key, optional (8-128 ASCII characters)</label><input id="idem" maxlength="128" autocomplete="off">
+<button type="submit">Create short link</button></form><div id="created" aria-live="polite"></div></section>
+<section><h2>Inspect a link</h2><form id="stats-form"><label for="code">Short code</label><input id="code" pattern="[A-Za-z0-9]{8}" required maxlength="8">
+<button type="submit">Read analytics</button><button id="revoke" type="button" class="danger">Revoke link</button></form><pre id="stats" aria-live="polite"></pre></section>
+<section><h2>Governed workbench</h2><p>Requirements and evidence are durable. Approvals require the separate reviewer credential. The local worker performs validation; this page cannot run arbitrary commands.</p>
+<form id="workflow-form"><label for="scenario">Scenario</label><select id="scenario"><option>greenfield</option><option>brownfield</option><option>ambiguous</option></select>
+<label for="requirement">Requirement</label><textarea id="requirement" required maxlength="4000">Create an HTTP(S) short URL and return 302 on GET with UTC daily redirect totals.</textarea>
+<label for="criteria">Acceptance criteria (one per line)</label><textarea id="criteria">Valid creation returns 201.
+A GET to the short link returns 302 and increments its counter once.
+Invalid input returns 422.</textarea>
+<label for="ambiguities">Unresolved questions (one per line; blank for a complete requirement)</label><textarea id="ambiguities"></textarea>
+<button type="submit">Create review workflow</button></form>
+<form id="inspect-form"><label for="run-id">Workflow ID</label><input id="run-id" required><button type="submit">Inspect workflow and audit</button></form>
+<form id="approve-form"><label for="gate">Gate</label><select id="gate"><option>clarification</option><option>impact</option><option>requirements</option><option>architecture</option><option>change</option><option>release</option></select>
+<label for="reason">Decision / clarification rationale</label><textarea id="reason" required minlength="10"></textarea><label for="resolved-criteria">Clarification: replacement acceptance criteria (one per line)</label><textarea id="resolved-criteria"></textarea>
+<label for="impact-refs">Impact evidence paths, one per line (brownfield gate)</label><textarea id="impact-refs"></textarea>
+<button type="submit">Explicitly approve selected gate</button><button id="reject" type="button" class="danger">Reject selected gate</button></form>
+<pre id="workflow" aria-live="polite"></pre></section>
+<section><h2>Service status</h2><button id="health" type="button" class="secondary">Check readiness</button><pre id="status" aria-live="polite"></pre>
+<p>Analytics count committed GET redirects, not unique people or confirmed destination visits. No visitor identifiers are stored in analytics. Rate limiting uses short-lived keyed client hashes.</p></section>
+<footer>Local review candidate. Human sign-off, security gates, and production hardening remain separate from passing tests. <a href="/openapi.json">OpenAPI contract</a></footer></main>
+<script src="/static/app.js" defer></script></body></html>

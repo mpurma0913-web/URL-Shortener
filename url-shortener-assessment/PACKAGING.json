@@ -1,0 +1,25 @@
+{
+  "source_commit": "038e57ff9e513bb3d642a47da4dd2f8641f70adb",
+  "source_fingerprint_sha256": "e37697dcc3cbbb7c8da17c6c2bed7a449b9fedeffed2d35362a2a897099cce16",
+  "tracked_file_count": 243,
+  "history": "Actual local build commits; no human-approved release tag or remote publication is claimed.",
+  "packaging_files": [
+    "PACKAGING.json",
+    "MANIFEST.sha256",
+    "BUILD_HISTORY.txt",
+    "build-history.bundle",
+    "evidence/validation/archive-validation.json",
+    "evidence/validation/archive-validation-tests.log"
+  ],
+  "excluded": [
+    ".git",
+    ".env",
+    "runtime databases",
+    "virtual environments",
+    "caches",
+    "raw font files",
+    "original internal assignment documents"
+  ],
+  "formal_release_decision": "NOT READY",
+  "human_approval": "PENDING"
+}
